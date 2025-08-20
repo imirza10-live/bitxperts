@@ -1,0 +1,31 @@
+name: Deploy Static Website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger on every push to main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - uses: actions/checkout@v3
+
+      # 2. Setup .NET (needed if you later have Blazor or other .NET build)
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      # 3. Publish the project (optional, but ensures wwwroot exists)
+      - name: Publish Project
+        run: dotnet publish -c Release -o publish
+
+      # 4. Deploy wwwroot to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./wwwroot
