@@ -5,6 +5,9 @@ on:
     branches:
       - main    # Trigger on everty push to main
 
+permissions:
+  contents: write  # Required, so the action can push to gh-pages
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -34,3 +37,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output
+          publish_branch: gh-pages  # Force branch creation if it doesn't exist
