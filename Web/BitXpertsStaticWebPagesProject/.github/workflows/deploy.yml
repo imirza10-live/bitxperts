@@ -3,7 +3,7 @@ name: Deploy Static Website to GitHub Pages
 on:
   push:
     branches:
-      - main    # Trigger on everty push to main
+      - master    # Trigger on everty push to master
 
 permissions:
   contents: write  # Required, so the action can push to gh-pages
